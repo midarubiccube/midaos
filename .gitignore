@@ -1,0 +1,15 @@
+/kernel.elf
+/disk.iso
+/hankaku.bin
+/kernel.vdi
+
+.vscode/
+mnt/
+
+*.o
+.*.d
+*:Zone.Identifier
+*dat
+*dsl
+*iasl
+*txt
