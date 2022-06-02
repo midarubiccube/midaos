@@ -1,15 +1,14 @@
-/kernel.elf
-/disk.iso
-/hankaku.bin
-/kernel.vdi
-
 .vscode/
 mnt/
 
-*.o
 .*.d
-*:Zone.Identifier
+*elf
+*iso
+*bin
 *dat
 *dsl
 *iasl
+*.o
 *txt
+*vdi
+*:Zone.Identifier
