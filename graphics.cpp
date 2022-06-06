@@ -1,9 +1,3 @@
-/**
- * @file graphics.cpp
- *
- * 画像描画関連のプログラムを集めたファイル．
- */
-
 #include "graphics.hpp"
 
 void RGBResv8BitPerColorPixelWriter::Write(Vector2D<int> pos, const PixelColor& c) {

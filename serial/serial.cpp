@@ -21,6 +21,7 @@ namespace SerialPort {
     IoOut8(COM1_PORT + 0, 0xAE);
 
     if(IoIn8(COM1_PORT) != 0xAE) {
+      exit(1);
     }
 
     IoOut8(COM1_PORT, 0x0D);

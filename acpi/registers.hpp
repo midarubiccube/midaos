@@ -28,8 +28,8 @@ namespace acpi {
     uint32_t length;
     uint8_t revision;
     uint8_t checksum;
-    char oem_id[6];
-    char oem_table_id[8];
+    uint8_t oem_id[6];
+    uint8_t oem_table_id[8];
     uint32_t oem_revision;
     uint32_t creator_id;
     uint32_t creator_revision;
@@ -87,7 +87,7 @@ namespace acpi {
     uint8_t MON_ALRM;
     uint8_t CENTURY;
     uint16_t IAPC_BOOT_ARCH;
-    char rsv1;
+    uint8_t rsv1;
     uint32_t Flags;
     uint8_t RESET_REG[12];
     uint8_t RESET_VALUE;
