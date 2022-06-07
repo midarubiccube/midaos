@@ -163,6 +163,14 @@ extern "C" void KernelMainNewStack(
 
   apic::ioapic::Initialize();
 
+  const uint64_t rflags = ReadRFLAGS();
+  Log(kError, "RFLAGS: %p\n", rflags);
+  WriteRFLAGS(rflags^0x00200000);
+  if ((ReadRFLAGS()^rflags) & 0x00200000) {
+    Log(kError, "This cpu is support CPUID\n");
+  }
+
+
   const int kTextboxCursorTimer = 1;
   const int kTimer05Sec = static_cast<int>(kTimerFreq * 0.5);
   timer_manager->AddTimer(Timer{kTimer05Sec, 1, kTextboxCursorTimer});

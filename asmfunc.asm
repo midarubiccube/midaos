@@ -188,3 +188,15 @@ Disable8259PIC:
   out 0x21, al
   out 0xa1, al
   ret
+
+global ReadRFLAGS
+ReadRFLAGS:
+  pushfq
+  pop qword rax
+  ret
+
+global WriteRFLAGS
+WriteRFLAGS:
+  push qword rdi
+  popfq
+  ret

@@ -16,6 +16,7 @@ extern "C" {
   uint64_t GetCR3();
   void SwitchContext(void* next_ctx, void* current_ctx);
 
+  void WriteRFLAGS(uint64_t rflags);
   uint64_t ReadRFLAGS();
   void ReadCPUID();
   void Disable8259PIC();
