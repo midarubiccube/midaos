@@ -165,9 +165,9 @@ extern "C" void KernelMainNewStack(
 
   const uint64_t rflags = ReadRFLAGS();
   Log(kError, "RFLAGS: %p\n", rflags);
-  WriteRFLAGS(rflags^0x00200000);
-  if ((ReadRFLAGS()^rflags) & 0x00200000) {
-    Log(kError, "This cpu is support CPUID\n");
+
+  if (CheckSupportCPUID()) {
+    Log(kError, "This CPU is support CPUID\n");
   }
 
 

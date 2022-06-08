@@ -18,6 +18,7 @@ extern "C" {
 
   void WriteRFLAGS(uint64_t rflags);
   uint64_t ReadRFLAGS();
+  bool CheckSupportCPUID();
   void ReadCPUID();
   void Disable8259PIC();
 }

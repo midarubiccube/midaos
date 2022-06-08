@@ -200,3 +200,17 @@ WriteRFLAGS:
   push qword rdi
   popfq
   ret
+
+global CheckSupportCPUID
+CheckSupportCPUID:
+  pushfq
+  pushfq
+  xor qword [rsp], 0x200000
+  popfq
+  pushfq
+  pop qword rax
+  xor qword rax, [rsp]
+  popfq
+  and qword rax, 0x200000
+  shr qword rax, 21
+  ret
