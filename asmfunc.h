@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "x64/cpuid.hpp"
+
 extern "C" {
   void IoOut32(uint16_t addr, uint32_t data);
   uint32_t IoIn32(uint16_t addr);
@@ -19,6 +21,6 @@ extern "C" {
   void WriteRFLAGS(uint64_t rflags);
   uint64_t ReadRFLAGS();
   bool CheckSupportCPUID();
-  void ReadCPUID();
+  void ReadCPUID(void* return_ptr, uint32_t eax, uint32_t ecx);
   void Disable8259PIC();
 }

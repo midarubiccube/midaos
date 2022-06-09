@@ -20,6 +20,7 @@
 
 #include "usb/xhci/xhci.hpp"
 
+#include "x64/cpuid.hpp"
 #include "x64/idt.hpp"
 #include "x64/paging.hpp"
 #include "x64/segment.hpp"
@@ -41,6 +42,7 @@
 #include "keyboard.hpp"
 #include "task.hpp"
 #include "terminal.hpp"
+
 
 
 int printk(const char* format, ...) {
@@ -163,13 +165,7 @@ extern "C" void KernelMainNewStack(
 
   apic::ioapic::Initialize();
 
-  const uint64_t rflags = ReadRFLAGS();
-  Log(kError, "RFLAGS: %p\n", rflags);
-
-  if (CheckSupportCPUID()) {
-    Log(kError, "This CPU is support CPUID\n");
-  }
-
+  cpuid::Initialize();
 
   const int kTextboxCursorTimer = 1;
   const int kTimer05Sec = static_cast<int>(kTimerFreq * 0.5);

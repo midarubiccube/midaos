@@ -201,6 +201,18 @@ WriteRFLAGS:
   popfq
   ret
 
+global ReadCPUID
+ReadCPUID:
+	mov eax, esi
+	mov ecx, edx
+	cpuid
+	mov [rdi], eax
+	mov [rdi + 4], ebx
+	mov [rdi + 8], ecx
+	mov [rdi + 12], edx
+	ret
+
+
 global CheckSupportCPUID
 CheckSupportCPUID:
   pushfq
