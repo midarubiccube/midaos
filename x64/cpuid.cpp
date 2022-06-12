@@ -2,6 +2,7 @@
 
 #include "asmfunc.h"
 #include "logger.hpp"
+#include <cstdlib>
 
 namespace {
   using namespace cpuid;
@@ -27,9 +28,9 @@ namespace cpuid {
     CPUID_return test;
 
     ReadCPUID(&test, 0, 0);
-    Log(kError, "eax %04lx\n", test.eax);
-    Log(kError, "ebx %04lx\n", test.ebx);
-    Log(kError, "ecx %04lx\n", test.ecx);
-    Log(kError, "edx %04lx\n", test.edx);
+    Log(kError, "eax: %04lx\n", test.eax);
+    Log(kError, "ebx: %04lx\n", test.ebx);
+    Log(kError, "ecx: %04lx\n", test.ecx);
+    Log(kError, "edx: %04lx\n", test.edx);
   }
 }
