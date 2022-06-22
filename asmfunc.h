@@ -21,6 +21,6 @@ extern "C" {
   void WriteRFLAGS(uint64_t rflags);
   uint64_t ReadRFLAGS();
   bool CheckSupportCPUID();
-  void ReadCPUID(void* return_ptr, uint32_t eax, uint32_t ecx);
+  void ReadCPUID(void* return_ptr, uint32_t eax);
   void Disable8259PIC();
 }

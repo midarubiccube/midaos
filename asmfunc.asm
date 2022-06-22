@@ -203,18 +203,28 @@ WriteRFLAGS:
 
 global ReadCPUID
 ReadCPUID:
+	mov r9, rdi
 	mov eax, esi
-	mov ecx, edx
+    push rax
+    push rbx
+    push rcx
+    push rdx
 	cpuid
-	mov [rdi], eax
-	mov [rdi + 4], ebx
-	mov [rdi + 8], ecx
-	mov [rdi + 12], edx
+	mov [r9], eax
+	mov [r9 + 4], ebx
+	mov [r9 + 8], ecx
+	mov [r9 + 12], edx
+    pop rdx
+    pop rcx
+    pop rbx
+    pop rax
 	ret
-
 
 global CheckSupportCPUID
 CheckSupportCPUID:
+  push rbp
+  mov rbp,rsp
+
   pushfq
   pushfq
   xor qword [rsp], 0x200000
@@ -225,4 +235,6 @@ CheckSupportCPUID:
   popfq
   and qword rax, 0x200000
   shr qword rax, 21
+  
+  pop rbp
   ret

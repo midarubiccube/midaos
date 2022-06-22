@@ -155,6 +155,8 @@ extern "C" void KernelMainNewStack(
   InitializeMainWindow();
   InitializeTextWindow();
   layer_manager->Draw({{0, 0}, ScreenSize()});
+
+  cpuid::Initialize();
   
   //タイマーを計測するためACPIコントローラを初期化する
   acpi::Initialize(acpi_table);
@@ -164,8 +166,6 @@ extern "C" void KernelMainNewStack(
   InitializeTimerManager();
 
   apic::ioapic::Initialize();
-
-  cpuid::Initialize();
 
   const int kTextboxCursorTimer = 1;
   const int kTimer05Sec = static_cast<int>(kTimerFreq * 0.5);
