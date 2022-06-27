@@ -210,21 +210,26 @@ WriteRFLAGS:
 
 global ReadCPUID
 ReadCPUID:
-	mov r9, rdi
-	mov eax, esi
+  push rbp
+  mov rbp,rsp
+
+  mov r9, rdi
+  mov eax, esi
   push rax
   push rbx
   push rcx
   push rdx
-	cpuid
-	mov [r9], eax
-	mov [r9 + 4], ebx
-	mov [r9 + 8], ecx
-	mov [r9 + 12], edx
+  cpuid
+  mov [r9], eax
+  mov [r9 + 4], ebx
+  mov [r9 + 8], ecx
+  mov [r9 + 12], edx
   pop rdx
   pop rcx
   pop rbx
   pop rax
+
+  pop rbp
 	ret
 
 global CheckSupportCPUID

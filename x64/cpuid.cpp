@@ -2,7 +2,6 @@
 
 #include "asmfunc.h"
 #include "logger.hpp"
-#include <cstdlib>
 
 namespace {
   using namespace cpuid;
