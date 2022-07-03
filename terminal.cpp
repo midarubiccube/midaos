@@ -2,6 +2,8 @@
 
 #include <cstring>
 
+#include "x64/cpuid.hpp"
+
 #include "font.hpp"
 #include "layer.hpp"
 #include "pci/pci.hpp"
@@ -21,7 +23,7 @@ Terminal::Terminal() {
     .ID();
 
   Print(">");
-  cmd_history_.resize(8);
+  cmd_history_.resize(8); 
 }
 
 Rectangle<int> Terminal::BlinkCursor() {
@@ -154,6 +156,12 @@ void Terminal::ExecuteLine() {
     sprintf(s, "Number of Command Slots: %d\n", ata::ghc->cap.bits.NCS);
     Print(s);
     sprintf(s, "Supports Native Command Queuing %s\n", ata::ghc->cap.bits.SNCQ ? "true" : "false");
+    Print(s);
+  } else if (strcmp(command, "infocpu") == 0) {
+    char s[128];
+    sprintf(s, "CPU Vendor: %.12s\n", cpuid::cpu_vendor.c_str());
+    Print(s);
+    sprintf(s, "CPU revision: %.48s\n", cpuid::cpu_revision.c_str());
     Print(s);
   } else if (command[0] != 0) {
     Print("no such command: ");

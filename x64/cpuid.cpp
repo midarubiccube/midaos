@@ -1,5 +1,8 @@
 #include "x64/cpuid.hpp"
 
+#include <cstring>
+#include <cstdlib>
+
 #include "asmfunc.h"
 #include "logger.hpp"
 
@@ -21,7 +24,8 @@ namespace cpuid {
     if (CheckSupportCPUID()) {
       Log(kError, "This CPU is support CPUID\n");
     } else {
-      return;
+      Log(kError, "This CPU is not support CPUID\n");
+      exit(1);
     }
 
     CPUID_return test;
@@ -33,7 +37,9 @@ namespace cpuid {
     tmp[1] = test.edx;
     tmp[2] = test.ecx;
 
-    Log(kError, "CPU Vendor: %.12s\n", reinterpret_cast<const char*>(tmp));
+    cpu_vendor = reinterpret_cast<const char*>(tmp);
+
+    Log(kError, "CPU Vendor: %.12s\n", cpu_vendor.c_str());
 
 
     uint32_t tmp1[12];
@@ -56,6 +62,8 @@ namespace cpuid {
     tmp1[9] = test.ebx;
     tmp1[10] = test.ecx;
     tmp1[11] = test.edx;
-    Log(kError, "CPU revision: %.48s\n", reinterpret_cast<const char*>(tmp1));
+
+    cpu_revision = reinterpret_cast<const char*>(tmp1);
+    Log(kError, "CPU revision: %.48s\n", cpu_revision.c_str());
   }
 }

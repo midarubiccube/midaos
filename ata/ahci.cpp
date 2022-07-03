@@ -13,7 +13,7 @@ namespace {
   using namespace ata;
   
   //GHCのログ
- /* void DumpAHCIRegisters(volatile GenericHostControl* ghc){
+ void DumpAHCIRegisters(volatile GenericHostControl* ghc){
     Log(kError, "Command slot nun: %d\n", ghc->cap.bits.NCS + 1);
     Log(kError, "64-bit Addressing: %s\n", ghc->cap.bits.S64A ? "true" : "false");
     Log(kError, "Supports Staggered Spin-up: %s\n", ghc->cap.bits.SSS ? "true" : "false");
@@ -22,7 +22,7 @@ namespace {
     Log(kError, "Supports Activity LED: %s\n", ghc->cap.bits.SAL ? "true" : "false");
     Log(kError, "Number of Command Slots: %d\n", ghc->cap.bits.NCS);
     Log(kError, "Supports Native Command Queuing %s\n", ghc->cap.bits.SNCQ ? "true" : "false");
-  }*/
+  }
 }
 
 namespace ata {
@@ -56,18 +56,16 @@ namespace ata {
   //AHCIコントローラの初期化
   void AHCIController::Initialize() {
     //Statusの表示
-    //DumpAHCIRegisters(ghc_);
+    DumpAHCIRegisters(ghc_);
     //AHCIモード
     
-    if (!ghc_->cap.bits.SPM){
-      ghc_->ghc.bits.AE = 1;
-    }
+    ghc_->ghc.bits.AE = 1;
     
     //初期化
     ghc_->ghc.bits.HR = 1;
-     /**while (ghc_->ghc.bits.HR) {
+     while (ghc_->ghc.bits.HR) {
         asm volatile("hlt");
-    }**/
+    }
     //AHCIモード
     if (!ghc_->cap.bits.SPM){
       ghc_->ghc.bits.AE = 1;
