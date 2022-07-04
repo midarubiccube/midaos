@@ -1,8 +1,14 @@
 #include "apic/apictimer.hpp"
 
+#include <cstdlib>
+
+#include "x64/cpuid.hpp"
+
 #include "acpi/pm_timer.hpp"
 
 #include "interrupt/interruptVectors.hpp"
+
+#include "logger.hpp"
 
 namespace {
   const uint32_t kCountMax = 0xffffffffu;
@@ -15,6 +21,14 @@ namespace {
 
 namespace apic {
   void InitializeLAPICTimer() {
+
+  if (!cpuid::edx_1.APIC) {
+    Log(kError, "APIC is not support in this cpu\n");
+    exit(1);
+  } else {
+    Log(kError, "APIC is support in this cpu\n");
+  }
+  
 
   divide_config = 0b1011; // divide 1:1
   lvt_timer = 0b001 << 16; // masked, one-shot

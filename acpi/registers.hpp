@@ -37,19 +37,20 @@ namespace acpi {
     bool IsValid(const char* expected_signature) const;
   } __attribute__((packed));
 
-  struct XSDT {
-  public:
-    //基本的なヘッダー
-    DescriptionHeader header;
-    //各テーブルへのポインター
-    uint64_t entry[];
+struct XSDT {
+public:
+  //基本的なヘッダー
+  DescriptionHeader header;
+  //各テーブルへのポインター
+  uint64_t entry[];
 
-    DescriptionHeader* FindTable(const char* expected_signature);
-  private:
-    size_t Count() const;
-  } __attribute__((packed));
+  DescriptionHeader* FindTable(const char* expected_signature);
+  void CheckTable() const;
+
+  size_t Count() const;
+} __attribute__((packed));
   
-  struct FADT_register {
+struct FADT_register {
     DescriptionHeader header;
 
     uint32_t FIRMWARE_CTRL;
@@ -106,7 +107,7 @@ namespace acpi {
     uint8_t SLEEP_CONTROL_REG[12];
     uint8_t SLEEP_STATUS_REG[12];
     uint64_t Hypervisor_Vendor_Identity;
-  } __attribute__((packed));
+} __attribute__((packed));
 
   enum class ICSType;
   struct Interrupt_StrctureHeader;

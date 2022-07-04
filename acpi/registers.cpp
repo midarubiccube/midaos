@@ -68,6 +68,13 @@ namespace acpi {
     return nullptr;
   }
 
+  void XSDT::CheckTable() const{
+    for (int i = 0; i < Count(); ++i) {
+      auto emtry = reinterpret_cast<DescriptionHeader*>(entry[i]);
+      Log(kError, "signature: %.4s\n", emtry->signature);
+    }
+  }
+
   size_t XSDT::Count() const {
     return (this->header.length - sizeof(DescriptionHeader)) / sizeof(uint64_t);
   }
@@ -81,7 +88,7 @@ namespace acpi {
     )
     {
       madt_list.push_back(i);
-      Log(kError, "%s\n", ics_names_[reinterpret_cast<Interrupt_StrctureHeader*>(i)->type]);
+      Log(kDebug, "%s\n", ics_names_[reinterpret_cast<Interrupt_StrctureHeader*>(i)->type]);
     }
   }
 

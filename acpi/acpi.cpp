@@ -31,16 +31,17 @@ namespace acpi {
 
     SCI_Interrupt_Pin = fadt_register->SCI_INT;
 
-
+    Log(kError, "Count: %d\n", xsdt_register->Count());
     madt_register = reinterpret_cast<MADT_register*>(xsdt_register->FindTable("APIC"));
 
     if (!madt_register->header.IsValid("APIC")) {
       Log(kError, "MADT is not valid");
       exit(1);
     }
-    madt_register->FindTable();
 
-    Log(kError, "SSDT %p\n", xsdt_register->FindTable("SSDT"));
+    madt_register->FindTable();
+  
+    xsdt_register->CheckTable(); 
 
     Log(kError, "SCI interupt pin %04lx\n", SCI_Interrupt_Pin);
 
