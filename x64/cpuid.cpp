@@ -41,9 +41,12 @@ namespace cpuid {
 
     Log(kError, "CPU Vendor: %.12s\n", cpu_vendor.c_str());
 
+    ReadCPUID(&test, 0x1);
+    edx_1.data = test.edx;
+
+    Log(kError, "MSR: %s\n", edx_1.MSR ? "true" : "false");
 
     uint32_t tmp1[12];
-
     
     ReadCPUID(&test, 0x80000002);
     tmp1[0] = test.eax;
@@ -62,11 +65,6 @@ namespace cpuid {
     tmp1[9] = test.ebx;
     tmp1[10] = test.ecx;
     tmp1[11] = test.edx;
-
-    ReadCPUID(&test, 0x1);
-
-    Log(kError, "edx: %08lx\n", test.edx);
-    edx_1.data = test.edx;
 
     cpu_revision = reinterpret_cast<const char*>(tmp1);
     Log(kError, "CPU revision: %.48s\n", cpu_revision.c_str());

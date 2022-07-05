@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 TARGET = kernel.elf
 OBJS = acpi/acpi.o acpi/pm_timer.o acpi/registers.o \
-       apic/apictimer.o apic/ioapic.o \
+       apic/apic.o apic/apictimer.o apic/ioapic.o \
 			 ata/fis.o ata/ahci.o ata/port.o ata/registers.o ata/SATAController.o \
 			 interrupt/interrupt.o \
 			 serial/serial.o \
@@ -10,7 +10,7 @@ OBJS = acpi/acpi.o acpi/pm_timer.o acpi/registers.o \
        usb/classdriver/base.o usb/classdriver/hid.o usb/classdriver/keyboard.o \
        usb/classdriver/mouse.o \
 			 pci/pci.o \
-			 x64/idt.o x64/segment.o x64/paging.o x64/cpuid.o\
+			 x64/idt.o x64/segment.o x64/paging.o x64/cpuid.o \
 			 main.o graphics.o mouse.o font.o hankaku.o newlib_support.o console.o \
        asmfunc.o libcxx_support.o logger.o  memory_manager.o window.o \
 			 layer.o timer.o frame_buffer.o keyboard.o task.o terminal.o 

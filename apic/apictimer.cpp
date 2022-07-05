@@ -8,6 +8,7 @@
 
 #include "interrupt/interruptVectors.hpp"
 
+#include "asmfunc.h"
 #include "logger.hpp"
 
 namespace {
@@ -19,15 +20,9 @@ namespace {
 }
 
 
-namespace apic {
-  void InitializeLAPICTimer() {
+namespace apic::timer {
+  void Initialize() {
 
-  if (!cpuid::edx_1.APIC) {
-    Log(kError, "APIC is not support in this cpu\n");
-    exit(1);
-  } else {
-    Log(kError, "APIC is support in this cpu\n");
-  }
   
 
   divide_config = 0b1011; // divide 1:1

@@ -31,10 +31,12 @@ namespace cpuid {
       uint8_t CLFSH:1;
     };
   };
-  
   inline EDX_1 edx_1;
 
   inline std::string cpu_vendor;                                                                                                                                          
   inline std::string cpu_revision;
+
+  inline bool CheckSupportAPIC() { return edx_1.APIC; }
+  inline bool CheckSupportMSR() { return edx_1.MSR; }
 }
  

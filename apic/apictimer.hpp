@@ -2,8 +2,8 @@
 
 #include <cstdint>
 
-namespace apic {
-  void InitializeLAPICTimer();
+namespace apic::timer {
+  void Initialize();
   void StartLAPICTimer();
   uint32_t LAPICTimerElapsed();
   void StopLAPICTimer();

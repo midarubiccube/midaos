@@ -9,6 +9,7 @@
 
 #include "acpi/acpi.hpp"
 
+#include "apic/apic.hpp"
 #include "apic/apictimer.hpp"
 #include "apic/ioapic.hpp"
 
@@ -157,11 +158,13 @@ extern "C" void KernelMainNewStack(
   layer_manager->Draw({{0, 0}, ScreenSize()});
 
   cpuid::Initialize();
+
+  apic::Initialize();
   
   //タイマーを計測するためACPIコントローラを初期化する
   acpi::Initialize(acpi_table);
   //APIC Local Timerを動作させるためにコントローラを初期化する
-  apic::InitializeLAPICTimer();
+  apic::timer::Initialize();
   //タイマーマネージャーの初期化
   InitializeTimerManager();
 

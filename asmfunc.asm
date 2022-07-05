@@ -102,6 +102,48 @@ GetCR3:
   mov rax, cr3
   ret
 
+global ReadRFLAGS
+ReadRFLAGS:
+  pushfq
+  pop qword rax
+  ret
+
+global WriteRFLAGS
+WriteRFLAGS:
+  push qword rdi
+  popfq
+  ret
+
+global ReadCPUID
+ReadCPUID:
+  push rbp
+  mov rbp,rsp
+
+  mov r9, rdi
+  mov eax, esi
+  push rbx
+  push rcx
+  push rdx
+  cpuid
+  mov [r9], eax
+  mov [r9 + 4], ebx
+  mov [r9 + 8], ecx
+  mov [r9 + 12], edx
+  pop rdx
+  pop rcx
+  pop rbx
+
+  pop rbp
+	ret
+
+global ReadMSR
+ReadMSR:
+  mov ecx, edi
+  rdmsr
+  sal qword rdx,32
+  or rax,rdx
+  ret
+
 extern kernel_main_stack
 extern KernelMainNewStack
 
@@ -195,42 +237,6 @@ Disable8259PIC:
   out 0x21, al
   out 0xa1, al
   ret
-
-global ReadRFLAGS
-ReadRFLAGS:
-  pushfq
-  pop qword rax
-  ret
-
-global WriteRFLAGS
-WriteRFLAGS:
-  push qword rdi
-  popfq
-  ret
-
-global ReadCPUID
-ReadCPUID:
-  push rbp
-  mov rbp,rsp
-
-  mov r9, rdi
-  mov eax, esi
-  push rax
-  push rbx
-  push rcx
-  push rdx
-  cpuid
-  mov [r9], eax
-  mov [r9 + 4], ebx
-  mov [r9 + 8], ecx
-  mov [r9 + 12], edx
-  pop rdx
-  pop rcx
-  pop rbx
-  pop rax
-
-  pop rbp
-	ret
 
 global CheckSupportCPUID
 CheckSupportCPUID:
